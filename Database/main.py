@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from dialog import Ui_Dialog
 import mysql.connector
 
 
@@ -26,20 +27,26 @@ def connect_database():
     return warning_db_cursor.fetchall()
 
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1107, 808)
+        MainWindow.resize(1500, 808)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
         self.Search_bar = QtWidgets.QTextEdit(self.centralwidget)
-        self.Search_bar.setGeometry(QtCore.QRect(30, 20, 671, 21))
+        self.Search_bar.setGeometry(QtCore.QRect(20, 20, 1200, 20))
         self.Search_bar.setObjectName("Search_bar")
+
         self.Filter_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.Filter_btn.setGeometry(QtCore.QRect(710, 20, 75, 24))
+        # self.Filter_btn.setGeometry(QtCore.QRect(1250, 20, 175, 20))
+        self.Filter_btn.setGeometry(1250, 20, 171, 20)
         self.Filter_btn.setObjectName("Filter_btn")
+        self.Filter_btn.clicked.connect(self.filter)
+        
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(20, 70, 1061, 651))
+        self.tableWidget.setGeometry(QtCore.QRect(20, 70, 1401, 651))
         self.tableWidget.setAutoScroll(True)
         self.tableWidget.setShowGrid(True)
         self.tableWidget.setRowCount(0)
@@ -52,18 +59,25 @@ class Ui_MainWindow(object):
         item.setFont(font)
 
         self.tableWidget.setHorizontalHeaderItem(0, item)
+        self.tableWidget.setColumnWidth(0, 200)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(1, item)
+        self.tableWidget.setColumnWidth(1, 200)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(2, item)
+        self.tableWidget.setColumnWidth(2, 200)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(3, item)
+        self.tableWidget.setColumnWidth(3, 200)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(4, item)
+        self.tableWidget.setColumnWidth(4, 200)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(5, item)
+        self.tableWidget.setColumnWidth(5, 200)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(6, item)
+        self.tableWidget.setColumnWidth(6, 200)
         self.tableWidget.setHorizontalHeaderLabels(["Defect ID", "Code line", "Line in source", "Function name", "Warning prio", "User ID", "Task ID"])        
         self.tableWidget.verticalHeader().setVisible(True)
         self.tableWidget.verticalHeader().setStretchLastSection(True)
@@ -97,6 +111,9 @@ class Ui_MainWindow(object):
         # item.setText(_translate("MainWindow", "User ID"))
         # item = self.tableWidget.horizontalHeaderItem(6)
         # item.setText(_translate("MainWindow", "Task ID"))
+    
+    def filter(self):
+        print("U r clicked")
 
 
 if __name__ == "__main__":
@@ -106,9 +123,9 @@ if __name__ == "__main__":
 
     print(database_obj)
 
-    # app = QtWidgets.QApplication(sys.argv)
-    # MainWindow = QtWidgets.QMainWindow()
-    # ui = Ui_MainWindow()
-    # ui.setupUi(MainWindow)
-    # MainWindow.show()
-    # sys.exit(app.exec_())
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
